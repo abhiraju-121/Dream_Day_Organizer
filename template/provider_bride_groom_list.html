@@ -1,0 +1,30 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">My Bridal & Groom Services</h2>
+    <a href="{% url 'add_bride_groom_service' %}" class="btn btn-primary mb-3">Add New Service</a>
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.package_name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.package_name }}</h5>
+                    <p class="card-text">{{ service.desc }}</p>
+                    <p><strong>Details:</strong> {{ service.package_details }}</p>
+                    <p><strong>Availability:</strong> 
+                        <span class="badge badge-{% if service.available %}success{% else %}danger{% endif %}">
+                            {% if service.available %} Available {% else %} Not Available {% endif %}
+                        </span>
+                    </p>
+                    <a href="{% url 'edit_bride_groom_service' service.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_bride_groom_service' service.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this service?')">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center w-100">No services added yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

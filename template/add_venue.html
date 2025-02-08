@@ -1,0 +1,34 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Add Venue</h2>
+    <form method="POST" enctype="multipart/form-data" class="card p-4 shadow">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Venue Name:</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Upload Image:</label>
+            <input type="file" name="image" class="form-control-file" required>
+        </div>
+        <div class="form-group">
+            <label>Location:</label>
+            <input type="text" name="location" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Capacity:</label>
+            <input type="number" name="capacity" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" name="available" class="form-check-input" id="available">
+            <label class="form-check-label" for="available">Available</label>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Add Venue</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Event Bookings</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>User</th>
+                <th>Event</th>
+                <th>Service</th>
+                <th>Customize</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.event.name }}</td>
+                <td>{{ booking.our_service }}</td>
+                <td>{{ booking.customize }}</td>
+                <td>
+                    <span class="badge badge-{% if booking.status == 'confirmed' %}success{% elif booking.status == 'pending' %}warning{% else %}danger{% endif %}">
+                        {{ booking.status }}
+                    </span>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'manage_event_bookings' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                        <select name="action" class="form-control form-control-sm d-inline-block" style="width: auto;">
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+
+<h2>Booking Reminders</h2>
+<ul>
+    {% for booking in bookings %}
+    <li>
+        <strong>{{ booking.event.title }}</strong> - {{ booking.status }}
+        <p>Booked by: {{ booking.user.username }}</p>
+    </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,29 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">📷 Photography & Videography Services</h2>
+    <hr>
+    <div class="text-end mb-3">
+        <a href="{% url 'add_photo_video_service' %}" class="btn btn-primary">➕ Add New Service</a>
+    </div>
+    <div class="row">
+        {% for service in photos %}
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <img src="{{ service.image.url }}" class="card-img-top" alt="Service Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.package_name }}</h5>
+                    <p class="card-text">{{ service.desc }}</p>
+                    <p><strong>Video Included:</strong> {{ service.includes_video|yesno:"Yes,No" }}</p>
+                    <p><strong>Available:</strong> {{ service.available|yesno:"Yes,No" }}</p>
+                    <a href="{% url 'edit_photo_video_service' service.id %}" class="btn btn-warning btn-sm">✏ Edit</a>
+                    <a href="{% url 'delete_photo_video_service' service.id %}" class="btn btn-danger btn-sm">🗑 Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No photography or videography services available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

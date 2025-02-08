@@ -1,0 +1,25 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Available Transport Services</h2>
+
+    <div class="row">
+        {% for service in transports %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.name }}</h5>
+                    <p class="card-text">{{ service.desc }}</p>
+                    <a href="{% url 'user_book_transport' service.id %}" class="btn btn-primary btn-sm">Book Transport</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No transportation services available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

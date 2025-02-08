@@ -1,0 +1,23 @@
+{% extends 'header.html' %}  
+{% block content %}  
+<div class="container mt-5">
+    <h2 class="text-center">Available Decoration Services</h2>
+    <div class="row">
+        {% for decore in decore %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ decore.image.url }}" class="card-img-top" alt="{{ decore.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ decore.name }}</h5>
+                    <p class="card-text">{{ decore.desc }}</p>
+                    <p><strong>Theme Options:</strong> {{ decore.theme_options }}</p>
+                    <a href="{% url 'user_book_decore' decore.id %}" class="btn btn-primary btn-block">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center w-100">No decoration services available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

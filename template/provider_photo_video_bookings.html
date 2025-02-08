@@ -1,0 +1,45 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">📸 Photography & Videography Bookings</h2>
+    <hr>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Service</th>
+                <th>Event Date</th>
+                <th>Custom Request</th>
+                <th>Status</th>
+                <th>Update Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.service.package_name }}</td>
+                <td>{{ booking.event_date }}</td>
+                <td>{{ booking.custom_service }}</td>
+                <td><strong>{{ booking.status }}</strong></td>
+                <td>
+                    <form method="POST" action="{% url 'manage_photo_booking_status' booking.id %}">
+                        {% csrf_token %}
+                        <select name="status" class="form-select">
+                            <option value="Pending" {% if booking.status == "Pending" %}selected{% endif %}>Pending</option>
+                            <option value="Confirmed" {% if booking.status == "Confirmed" %}selected{% endif %}>Confirmed</option>
+                            <option value="Completed" {% if booking.status == "Completed" %}selected{% endif %}>Completed</option>
+                        </select>
+                        <button type="submit" class="btn btn-success btn-sm mt-2">✔ Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center text-muted">No bookings available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

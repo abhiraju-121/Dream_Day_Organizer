@@ -1,0 +1,25 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Available Photography & Videography Services</h2>
+    <div class="row">
+        {% for photo in decores %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.package_name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ photo.package_name }}</h5>
+                    <p class="card-text">{{ photo.desc }}</p>
+                    <p><strong>Includes Video:</strong> 
+                        {% if photo.includes_video %} ✅ Yes {% else %} ❌ No {% endif %}
+                    </p>
+                    <a href="{% url 'user_book_photo_video' photo.id %}" class="btn btn-primary btn-block">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center w-100">No photography services available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'header.html' %}  
+{% block content %}  
+<div class="container mt-5">
+    <h2 class="text-center">Book Decoration Service</h2>
+    <div class="card">
+        <img src="{{ decore.image.url }}" class="card-img-top" alt="{{ decore.name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ decore.name }}</h5>
+            <p class="card-text">{{ decore.desc }}</p>
+            <p><strong>Theme Options:</strong> {{ decore.theme_options }}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Select Event Date:</label>
+                    <input type="date" name="event_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Custom Requirements:</label>
+                    <textarea name="custom_service" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

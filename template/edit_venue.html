@@ -1,0 +1,54 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 bg-white rounded">
+                <h3 class="text-center">🏠 Edit Venue</h3>
+                <hr>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="name"><strong>Venue Name</strong></label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ venue.name }}" required>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="image"><strong>Venue Image</strong></label>
+                        <input type="file" name="image" id="image" class="form-control">
+                        {% if venue.image %}
+                            <img src="{{ venue.image.url }}" alt="Venue Image" class="img-thumbnail mt-2" width="100">
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="location"><strong>Location</strong></label>
+                        <input type="text" name="location" id="location" class="form-control" value="{{ venue.location }}" required>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="capacity"><strong>Capacity</strong></label>
+                        <input type="number" name="capacity" id="capacity" class="form-control" value="{{ venue.capacity }}" required>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="description"><strong>Description</strong></label>
+                        <textarea name="description" id="description" class="form-control" rows="3" required>{{ venue.description }}</textarea>
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <input type="checkbox" name="available" id="available" class="form-check-input" {% if venue.available %}checked{% endif %}>
+                        <label class="form-check-label" for="available">Available for Booking</label>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success">✅ Save Changes</button>
+                        <a href="{% url 'venue_list' %}" class="btn btn-secondary">❌ Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

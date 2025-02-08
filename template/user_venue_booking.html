@@ -1,0 +1,29 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Book Venue: {{ venue.name }}</h2>
+    <div class="card shadow-lg p-4">
+        <img src="{{ venue.image.url }}" class="card-img-top mb-3" style="max-height: 300px; object-fit: cover;">
+        <p><strong>Location:</strong> {{ venue.location }}</p>
+        <p><strong>Capacity:</strong> {{ venue.capacity }} people</p>
+        <p>{{ venue.description }}</p>
+
+        {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="event_date" class="form-label"><strong>Select Event Date:</strong></label>
+                <input type="date" id="event_date" name="event_date" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit Booking Request</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'provider_header.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4 bg-white rounded">
+                <h2 class="text-center mb-4">🍽 Add Catering Service</h2>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Menu Name:</label>
+                        <input type="text" name="menu_name" class="form-control" required placeholder="Enter menu name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description:</label>
+                        <textarea name="desc" class="form-control" rows="3" required placeholder="Describe the service"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Image:</label>
+                        <input type="file" name="image" class="form-control" required>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" name="available" class="form-check-input" id="availableCheck">
+                        <label class="form-check-label" for="availableCheck">Available for Booking</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">➕ Add Service</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

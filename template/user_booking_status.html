@@ -1,0 +1,35 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">My Venue Bookings</h2>
+
+    <table class="table table-striped mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th>Venue</th>
+                <th>Event Date</th>
+                <th>Venue Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.venue.name }}</td>
+                <td>{{ booking.event_date }}</td>
+                <td>{{ booking.venue_customize }}</td>
+                <td>
+                    <span class="badge badge-{% if booking.status == 'Confirmed' %}success{% elif booking.status == 'Pending' %}warning{% else %}secondary{% endif %}">
+                        {{ booking.status }}
+                    </span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No bookings yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

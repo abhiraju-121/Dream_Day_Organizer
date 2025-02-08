@@ -1,0 +1,26 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Book Bridal & Groom Service</h2>
+    <div class="card">
+        <img src="{{ costume.image.url }}" class="card-img-top" alt="{{ costume.package_name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ costume.package_name }}</h5>
+            <p class="card-text">{{ costume.desc }}</p>
+            <p><strong>Package Details:</strong> {{ costume.package_details }}</p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Select Event Date:</label>
+                    <input type="date" name="event_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Suggest Theme:</label>
+                    <textarea name="suggest_theme" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

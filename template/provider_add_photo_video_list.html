@@ -1,0 +1,56 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-center">➕ Add Photography & Videography Service</h2>
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow p-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="package_name" class="form-label"><strong>Package Name:</strong></label>
+                        <input type="text" id="package_name" name="package_name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="desc" class="form-label"><strong>Description:</strong></label>
+                        <textarea id="desc" name="desc" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label"><strong>Service Image:</strong></label>
+                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" id="includes_video" name="includes_video" class="form-check-input">
+                        <label class="form-check-label" for="includes_video"><strong>Includes Video?</strong></label>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" id="available" name="available" class="form-check-input" checked>
+                        <label class="form-check-label" for="available"><strong>Available?</strong></label>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">✔ Add Service</button>
+                        <a href="{% url 'provider_photo_video_list' %}" class="btn btn-secondary">❌ Cancel</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

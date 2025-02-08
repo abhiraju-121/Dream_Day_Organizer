@@ -1,0 +1,51 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Manage Transportation Bookings</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>User</th>
+                <th>Service</th>
+                <th>Vehicle Type</th>
+                <th>Seats</th>
+                <th>Event Date</th>
+                <th>Rent Car</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.service.name }}</td>
+                <td>{{ booking.vehicle_type }}</td>
+                <td>{{ booking.seats }}</td>
+                <td>{{ booking.event_date }}</td>
+                <td>
+                    {% if booking.rent_car %} ✅ Yes {% else %} ❌ No {% endif %}
+                </td>
+                <td>
+                    <span class="badge badge-{% if booking.status == 'Confirmed' %}success{% elif booking.status == 'Pending' %}warning{% else %}danger{% endif %}">
+                        {{ booking.status }}
+                    </span>
+                </td>
+                <td>
+                    {% if booking.status == 'Pending' %}
+                        <a href="{% url 'update_booking_status' booking.id 'Confirmed' %}" class="btn btn-sm btn-success">Approve</a>
+                        <a href="{% url 'update_booking_status' booking.id 'Rejected' %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Reject</a>
+                    {% elif booking.status == 'Confirmed' %}
+                        <a href="{% url 'update_booking_status' booking.id 'Completed' %}" class="btn btn-sm btn-primary">Mark as Completed</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Book Photography Service</h2>
+    <div class="card">
+        <img src="{{ photos.image.url }}" class="card-img-top" alt="{{ photos.package_name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ photos.package_name }}</h5>
+            <p class="card-text">{{ photos.desc }}</p>
+            <p><strong>Includes Video:</strong> 
+                {% if photos.includes_video %} ✅ Yes {% else %} ❌ No {% endif %}
+            </p>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Select Event Date:</label>
+                    <input type="date" name="event_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Custom Requirements:</label>
+                    <textarea name="custom_service" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Book Now</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

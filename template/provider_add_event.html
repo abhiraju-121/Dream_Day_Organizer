@@ -1,0 +1,26 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Add New Event</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Event Name</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" id="location" name="location" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Event Image</label>
+            <input type="file" id="image" name="image" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add Event</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">🏠 Your Venues</h2>
+    
+    {% if venues %}
+    <div class="row">
+        {% for venue in venues %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ venue.image.url }}" class="card-img-top" alt="{{ venue.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ venue.name }}</h5>
+                    <p class="card-text">{{ venue.description|truncatewords:20 }}</p>
+                    <p><strong>Location:</strong> {{ venue.location }}</p>
+                    <p><strong>Capacity:</strong> {{ venue.capacity }}</p>
+                    <p><strong>Available:</strong> {% if venue.available %} Yes {% else %} No {% endif %}</p>
+                    <a href="{% url 'edit_venue' venue.id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'delete_venue' venue.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>You have not added any venues yet. <a href="{% url 'add_venue' %}">Add a venue</a></p>
+    {% endif %}
+</div>
+{% endblock %}

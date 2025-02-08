@@ -1,0 +1,32 @@
+{% extends 'header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Book Event: {{ event.name }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="event_date">Event Date:</label>
+            <input type="date" id="event_date" name="event_date" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="service_type">Select Service:</label>
+            <select id="service_type" name="service_type" class="form-control" required>
+                <option value="Venue">Venue</option>
+                <option value="Catering">Catering</option>
+                <option value="Decorations">Decorations</option>
+                <option value="Photography">Photography</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="customize">Customization Details (Optional):</label>
+            <textarea id="customize" name="customize" class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit Booking</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'provider_header.html' %}  
+{% block content %}  
+<div class="container mt-5">
+    <h2 class="text-center">My Decoration Services</h2>
+    <a href="{% url 'add_decore_service' %}" class="btn btn-primary mb-3">Add New Decoration Service</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Available</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for decore in decores %}
+            <tr>
+                <td>{{ decore.name }}</td>
+                <td><img src="{{ decore.image.url }}" width="100" alt="{{ decore.name }}"></td>
+                <td>{{ decore.available|yesno:"Yes,No" }}</td>
+                <td>
+                    <a href="{% url 'edit_decore_service' decore.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_decore_service' decore.id %}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No Decoration Services Found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

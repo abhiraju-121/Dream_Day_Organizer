@@ -1,0 +1,48 @@
+{% extends 'provider_header.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Bridal & Groom Service Bookings</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>User</th>
+                <th>Service</th>
+                <th>Event Date</th>
+                <th>Status</th>
+                <th>Theme</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.user.username }}</td>
+                <td>{{ booking.service.package_name }}</td>
+                <td>{{ booking.event_date }}</td>
+                <td>
+                    <span class="badge badge-{% if booking.status == 'Confirmed' %}success{% elif booking.status == 'Pending' %}warning{% else %}secondary{% endif %}">
+                        {{ booking.status }}
+                    </span>
+                </td>
+                <td>{{ booking.suggest_theme }}</td>
+                <td>
+                    <form method="POST" action="{% url 'manage_bride_groom_status' booking.id %}">
+                        {% csrf_token %}
+                        <select name="status" class="form-control form-control-sm d-inline-block" style="width: auto;">
+                            <option value="Pending" {% if booking.status == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Confirmed" {% if booking.status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                            <option value="Completed" {% if booking.status == 'Completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
